@@ -18,7 +18,7 @@ function sendMessage() {
   `;
   chatArticle.appendChild(newMessageBlock);
   chatArticle.scrollTop = chatArticle.scrollHeight;
-  context.push({ sender: "User", message: message });
+  context.push({ role: "User", message: message });
   console.log(context);
 
   var payload = {
@@ -57,7 +57,7 @@ function sendMessage() {
       `;
       chatArticle.appendChild(responseBlock);
       chatArticle.scrollTop = chatArticle.scrollHeight;
-      context.push({ sender: "Empathia", message: data.response.message });
+      context.push({ role: "Empathia", message: data.response.message });
       console.log(context);
     })
     .catch(function (error) {
@@ -96,4 +96,4 @@ initialMessageBlock.innerHTML = `
     </footer>
   `;
 chatArticle.appendChild(initialMessageBlock);
-context.push({ sender: "Empathia", message: "How are you feeling today?" });
+context.push({ role: "Empathia", message: "How are you feeling today?" });
