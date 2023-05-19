@@ -49,3 +49,56 @@ button {
   font-size: 0.7rem;
   color: #0f1c14;
 }
+
+@media (min-height: 1290px) {
+  h3 {
+    font-size: 2rem;
+  }
+
+  input[name="content"] {
+    font-size: 3rem;
+    height: 7vh;
+  }
+
+  button#send-button {
+    font-size: 4rem;
+    height: 5vh;
+  }
+
+  #chat {
+    max-height: 60vh;
+  }
+
+  button,
+  h3,
+  .benefit-btn {
+    font-size: 3rem;
+  }
+
+  button {
+    height: 3vh;
+  }
+
+  article {
+    max-height: 90vh;
+  }
+
+  blockquote {
+    font-size: 3rem;
+  }
+
+  footer {
+    font-size: 2rem;
+  }
+  p .main {
+    margin-top: 8rem;
+    margin-left: 8rem;
+    margin-right: 8rem;
+  }
+
+  .benefit-btn {
+    max-width: 40vw;
+    max-height: 20vh;
+    font-size: 1.4rem;
+  }
+}
