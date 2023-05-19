@@ -47,11 +47,13 @@
       #chat::-webkit-scrollbar-thumb:hover {
         background-color: #1bd15b;
       }
-      .container {
+      .main {
         margin-top: 2rem;
+        margin-left: 2rem;
+        margin-right: 2rem;
       }
     </style>
-    <div class="container">
+    <div class="main">
       <hgroup>
         <h3>
           <img
@@ -61,26 +63,16 @@
             alt=""
           />>> Empathia
         </h3>
-        <article id="chat">
-          <blockquote>
-            <div id="reponse-1">How are you feeling today?</div>
-            <footer>
-              <cite>- <i>BotCouch</i> May 19, 2023, 11:26 a.m.</cite>
-            </footer>
-          </blockquote>
-          <br />
-        </article>
+        <article id="chat"></article>
         <br />
-        <form>
-          <input
-            name="content"
-            type="text"
-            placeholder="Write a message.."
-            maxlength="255"
-            required
-          />
-          <button id="send-button" onclick="sendMessage()">Send</button>
-        </form>
+        <input
+          name="content"
+          type="text"
+          placeholder="Write a message.."
+          maxlength="255"
+          required
+        />
+        <button id="send-button" onclick="sendMessage()">Send</button>
       </hgroup>
     </div>
     <script src="js/script.js"></script>
