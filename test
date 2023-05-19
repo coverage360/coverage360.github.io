@@ -1,3 +1,26 @@
+crie um funcao para que quando o usuario envia uma mensagem
+adicione essa mensagem ao article chat
+faça uma chamada POST a esta API https://1j66to3zu3.execute-api.sa-east-1.amazonaws.com/dev/hackathon/gpt com o payload
+{
+"prompt": "I feel sad"
+}
+
+Quando receber a resposta
+Adicione a resposta ao article chat
+
+funcionou mas quando recebo a resposta mostra apenas um [object, object] está é a resposta da API
+
+{
+"code": 200,
+"message": "success",
+"response": {
+"message": "\nThe best benefit to recommend would be Consulta Psicológica",
+}
+}
+
+também chame a funcao typeWriter("reponse-{increment}", ["{message}"], 50);
+toda vez que escrever uma funcao no DOM
+
 <!-- extend base layout -->
 
 <html data-theme="light">
@@ -59,7 +82,7 @@
             height="50rem"
             width="50rem"
             alt=""
-          />>> Empathia
+          />>> BotCouch
         </h3>
         <article id="chat">
           <blockquote>
@@ -71,18 +94,17 @@
           <br />
         </article>
         <br />
-        <form>
-          <input
-            name="content"
-            type="text"
-            placeholder="Write a message.."
-            maxlength="255"
-            required
-          />
-          <button id="send-button" onclick="sendMessage()">Send</button>
-        </form>
+        <input
+          name="content"
+          type="text"
+          placeholder="Write a message.."
+          maxlength="255"
+          required
+        />
+        <button type="submit">Send</button>
       </hgroup>
     </div>
-    <script src="js/script.js"></script>
+    <script src="typeEffect.js"></script>
+
   </body>
 </html>
