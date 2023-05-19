@@ -1,12 +1,15 @@
-var increment = 0;
+var context = [];
 
 function sendMessage() {
-  // Obter a mensagem do usuário
   var message = document.querySelector('input[name="content"]').value;
 
-  // Adicionar a mensagem ao artigo de chat
+  if (message === "") {
+    return; 
+  }
+
   var chatArticle = document.getElementById("chat");
   var newMessageBlock = document.createElement("blockquote");
+  newMessageBlock.id = "message-" + context.length;
   newMessageBlock.innerHTML = `
     <div>${message}</div>
     <footer>
@@ -15,10 +18,12 @@ function sendMessage() {
   `;
   chatArticle.appendChild(newMessageBlock);
   chatArticle.scrollTop = chatArticle.scrollHeight;
+  context.push({ sender: "User", message: message });
+  console.log(context);
 
-  // Enviar a mensagem para a API
   var payload = {
     prompt: message,
+    context: context
   };
   fetch(
     "https://1j66to3zu3.execute-api.sa-east-1.amazonaws.com/dev/hackathon/gpt",
@@ -34,25 +39,31 @@ function sendMessage() {
       return response.json();
     })
     .then(function (data) {
+      var benefits = data.response.benefits;
+      var benefitsHtml = benefits.map(function (benefit) {
+        return `<span class="benefit-btn">${benefit}</span>`;
+      }).join(", ");
+      benefitsHtml = benefitsHtml.replace(/,/g, '');
+
       var responseBlock = document.createElement("blockquote");
-      var increment = new Date().toLocaleString();
-      var responseId = `reponse-${increment}`;
+      responseBlock.id = "message-" + context.length;
       responseBlock.innerHTML = `
-        <div>${data.response.response}</div>
+        <div>${data.response.message}</div>
+        <br/>
+        ${benefitsHtml}
         <footer>
-          <cite><i>🦜 Empathia</i> ${increment}</cite>
+          <cite><i>🦜 Empathia</i> ${new Date().toLocaleString()}</cite>
         </footer>
       `;
       chatArticle.appendChild(responseBlock);
       chatArticle.scrollTop = chatArticle.scrollHeight;
-
-      var responseMessage = data.response.response;
-      // typeWriter(responseId, [responseMessage], 50);
-
+      context.push({ sender: "Empathia", message: data.response.message });
+      console.log(context);
     })
     .catch(function (error) {
       console.error("Error:", error);
     });
+
   document.querySelector('input[name="content"]').value = "";
 }
 
@@ -76,12 +87,13 @@ function typeWriter(elementId, words, speed) {
 var chatArticle = document.getElementById("chat");
 
 var initialMessageBlock = document.createElement("blockquote");
+initialMessageBlock.id = "message-" + context.length;
 var initial_date = new Date().toLocaleString();
 initialMessageBlock.innerHTML = `
-    <div id="reponse-1">How are you feeling today?</div>
+    <div>How are you feeling today?</div>
     <footer>
       <cite><i>🦜 Empathia</i> ${initial_date}</cite>
     </footer>
   `;
 chatArticle.appendChild(initialMessageBlock);
-// typeWriter("reponse-1", ["How are you feeling today?"], 50);
+context.push({ sender: "Empathia", message: "How are you feeling today?" });
