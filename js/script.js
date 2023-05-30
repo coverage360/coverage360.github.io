@@ -26,7 +26,7 @@ function sendMessage() {
     context: context
   };
   fetch(
-    "https://bke4e6dko6.execute-api.sa-east-1.amazonaws.com/dev/hackathon/gpt",
+    "https://20p7hg3esb.execute-api.sa-east-1.amazonaws.com/dev/hackathon/gpt",
     {
       method: "POST",
       headers: {
