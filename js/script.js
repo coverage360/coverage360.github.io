@@ -4,7 +4,7 @@ function sendMessage() {
   var message = document.querySelector('input[name="content"]').value;
 
   if (message === "") {
-    return; 
+    return;
   }
 
   var chatArticle = document.getElementById("chat");
@@ -18,15 +18,15 @@ function sendMessage() {
   `;
   chatArticle.appendChild(newMessageBlock);
   chatArticle.scrollTop = chatArticle.scrollHeight;
-  context.push({ role: "User", message: message });
+  context.push({ role: "user", content: message });
   console.log(context);
 
   var payload = {
     prompt: message,
-    context: context
+    context: context,
   };
   fetch(
-    "https://20p7hg3esb.execute-api.sa-east-1.amazonaws.com/dev/hackathon/gpt",
+    "https://bke4e6dko6.execute-api.sa-east-1.amazonaws.com/dev/hackathon/gpt",
     {
       method: "POST",
       headers: {
@@ -40,10 +40,12 @@ function sendMessage() {
     })
     .then(function (data) {
       var benefits = data.response.benefits;
-      var benefitsHtml = benefits.map(function (benefit) {
-        return `<span class="benefit-btn">${benefit}</span>`;
-      }).join(", ");
-      benefitsHtml = benefitsHtml.replace(/,/g, '');
+      var benefitsHtml = benefits
+        .map(function (benefit) {
+          return `<span class="benefit-btn">${benefit}</span>`;
+        })
+        .join(", ");
+      benefitsHtml = benefitsHtml.replace(/,/g, "");
 
       var responseBlock = document.createElement("blockquote");
       responseBlock.id = "message-" + context.length;
@@ -57,7 +59,7 @@ function sendMessage() {
       `;
       chatArticle.appendChild(responseBlock);
       chatArticle.scrollTop = chatArticle.scrollHeight;
-      context.push({ role: "Empathia", message: data.response.message });
+      context.push({ role: "system", content: data.response.message });
       console.log(context);
     })
     .catch(function (error) {
@@ -96,4 +98,4 @@ initialMessageBlock.innerHTML = `
     </footer>
   `;
 chatArticle.appendChild(initialMessageBlock);
-context.push({ role: "Empathia", message: "How are you feeling today?" });
+context.push({ role: "system", content: "How are you feeling today?" });
